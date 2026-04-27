@@ -181,4 +181,42 @@ export default defineSchema({
   })
     .index("by_agent", ["agentId"])
     .index("by_owner", ["ownerId"]),
+
+  // Server-side processing pipeline jobs
+  pipelineJobs: defineTable({
+    ownerId: v.id("users"),
+    // Source: either an emotionalState or a standalone mediaJob
+    emotionalStateId: v.optional(v.id("emotionalStates")),
+    mediaJobId: v.optional(v.id("mediaJobs")),
+    // Job type
+    jobType: v.union(
+      v.literal("bg_removal"),       // Remove background from image
+      v.literal("video_to_webm"),    // Convert video → WebM
+      v.literal("video_to_gif"),     // Convert video → GIF
+      v.literal("image_optimize")    // Compress / resize image
+    ),
+    // Input
+    inputUrl: v.string(),
+    inputStorageId: v.optional(v.id("_storage")),
+    // Output
+    outputUrl: v.optional(v.string()),
+    outputStorageId: v.optional(v.id("_storage")),
+    outputFormat: v.optional(v.string()),
+    outputBytes: v.optional(v.number()),
+    inputBytes: v.optional(v.number()),
+    // Status
+    status: v.union(
+      v.literal("queued"),
+      v.literal("running"),
+      v.literal("done"),
+      v.literal("failed")
+    ),
+    errorMessage: v.optional(v.string()),
+    attempts: v.number(),
+    startedAt: v.optional(v.string()),
+    completedAt: v.optional(v.string()),
+  })
+    .index("by_owner", ["ownerId"])
+    .index("by_status", ["status"])
+    .index("by_emotional_state", ["emotionalStateId"]),
 });

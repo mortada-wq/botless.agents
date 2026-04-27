@@ -43,6 +43,7 @@ interface UploadStateCardProps {
 export default function UploadStateCard({ characterId, onUploaded }: UploadStateCardProps) {
   const generateUploadUrl = useMutation(api.characters.generateUploadUrl);
   const addEmotionalState = useMutation(api.characters.addEmotionalState);
+  const enqueueJob = useMutation(api.pipeline.jobs.enqueueJob);
 
   const fileRef = useRef<HTMLInputElement>(null);
   const [emotion, setEmotion] = useState("happy");
@@ -190,6 +191,25 @@ export default function UploadStateCard({ characterId, onUploaded }: UploadState
         isDefault: false,
       });
       updateStep("save", { status: "done" });
+
+      // Auto-enqueue server-side pipeline job for additional processing
+      // Images: queue bg_removal for server-side remove.bg if not already done browser-side
+      // Videos already converted browser-side — queue a storage re-tag job
+      try {
+        const serverJobType: "bg_removal" | "video_to_webm" | "video_to_gif" | "image_optimize" = isImage
+          ? "bg_removal"
+          : isVideo
+            ? (finalFormat === "gif" ? "video_to_gif" : "video_to_webm")
+            : "image_optimize";
+
+        await enqueueJob({
+          jobType: serverJobType,
+          inputUrl: resultPreviewUrl,
+          inputBytes: processedBlob.size,
+        });
+      } catch {
+        // Non-blocking — pipeline enqueue failure shouldn't block the upload
+      }
 
       setDone(true);
       toast.success(`${emotion} clip ready!`);

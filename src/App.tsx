@@ -17,6 +17,7 @@ import AnalyticsPage from "./pages/dashboard/analytics/page.tsx";
 import KnowledgeBasePage from "./pages/dashboard/agents/knowledge/page.tsx";
 import EmbedPage from "./pages/embed/page.tsx";
 import PlaygroundPage from "./pages/dashboard/playground/page.tsx";
+import PipelinePage from "./pages/dashboard/pipeline/page.tsx";
 import { Authenticated, Unauthenticated, AuthLoading } from "convex/react";
 import { useQuery } from "convex/react";
 import { api } from "@/convex/_generated/api.js";
@@ -92,6 +93,7 @@ export default function App() {
             <Route path="analytics" element={<AnalyticsPage />} />
             <Route path="agents/:agentId/knowledge" element={<KnowledgeBasePage />} />
             <Route path="playground" element={<PlaygroundPage />} />
+            <Route path="pipeline" element={<PipelinePage />} />
           </Route>
           {/* ADD ALL CUSTOM ROUTES ABOVE THE CATCH-ALL "*" ROUTE */}
           <Route path="/marketplace" element={<MarketplacePage />} />
