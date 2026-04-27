@@ -6,6 +6,8 @@ import NotFound from "./pages/NotFound.tsx";
 import Onboarding from "./pages/onboarding/page.tsx";
 import DashboardLayout from "./pages/dashboard/_components/layout.tsx";
 import DashboardHome from "./pages/dashboard/page.tsx";
+import AgentsPage from "./pages/dashboard/agents/page.tsx";
+import NewAgentPage from "./pages/dashboard/agents/new/page.tsx";
 import { Authenticated, Unauthenticated, AuthLoading } from "convex/react";
 import { useQuery } from "convex/react";
 import { api } from "@/convex/_generated/api.js";
@@ -73,7 +75,8 @@ export default function App() {
             }
           >
             <Route index element={<DashboardHome />} />
-            <Route path="agents" element={<div className="text-foreground p-4">Agents — coming in next milestone</div>} />
+            <Route path="agents" element={<AgentsPage />} />
+            <Route path="agents/new" element={<NewAgentPage />} />
             <Route path="settings" element={<div className="text-foreground p-4">Settings — coming in next milestone</div>} />
           </Route>
           {/* ADD ALL CUSTOM ROUTES ABOVE THE CATCH-ALL "*" ROUTE */}
