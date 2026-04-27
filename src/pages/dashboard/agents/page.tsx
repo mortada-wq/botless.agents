@@ -2,7 +2,7 @@ import { useQuery, useMutation } from "convex/react";
 import { api } from "@/convex/_generated/api.js";
 import { Link } from "react-router-dom";
 import { motion } from "motion/react";
-import { Plus, Bot, MoreVertical, Trash2, EyeOff, Globe, Share2 } from "lucide-react";
+import { Plus, Bot, MoreVertical, Trash2, EyeOff, Globe, Share2, BookOpen } from "lucide-react";
 import { Button } from "@/components/ui/button.tsx";
 import { Skeleton } from "@/components/ui/skeleton.tsx";
 import { Empty, EmptyHeader, EmptyMedia, EmptyTitle, EmptyDescription, EmptyContent } from "@/components/ui/empty.tsx";
@@ -107,6 +107,18 @@ function AgentCard({ agent }: { agent: Doc<"agents"> }) {
             </span>
           )}
         </div>
+      </div>
+
+      {/* Actions row */}
+      <div className="absolute bottom-4 right-14 flex items-center gap-1">
+        <Link to={`/dashboard/agents/${agent._id}/knowledge`}>
+          <button
+            className="flex items-center gap-1.5 text-xs text-muted-foreground hover:text-primary transition-colors px-2 py-1 rounded-lg hover:bg-primary/10 cursor-pointer"
+            title="Knowledge Base"
+          >
+            <BookOpen className="w-3.5 h-3.5" /> Knowledge
+          </button>
+        </Link>
       </div>
 
       {/* Menu */}

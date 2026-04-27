@@ -137,4 +137,17 @@ export default defineSchema({
     // SiliconFlow shared key
     siliconflowApiKey: v.optional(v.string()),
   }).index("by_user", ["userId"]),
+
+  // Knowledge base files attached to an agent
+  knowledgeFiles: defineTable({
+    agentId: v.id("agents"),
+    ownerId: v.id("users"),
+    storageId: v.id("_storage"),
+    fileName: v.string(),
+    fileType: v.string(), // MIME type
+    fileSize: v.number(), // bytes
+    extractedText: v.optional(v.string()), // plain-text content extracted from file
+  })
+    .index("by_agent", ["agentId"])
+    .index("by_owner", ["ownerId"]),
 });
