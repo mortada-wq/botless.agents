@@ -15,6 +15,7 @@ import MarketplacePage from "./pages/marketplace/page.tsx";
 import AgentSharePage from "./pages/agent/page.tsx";
 import AnalyticsPage from "./pages/dashboard/analytics/page.tsx";
 import KnowledgeBasePage from "./pages/dashboard/agents/knowledge/page.tsx";
+import EmbedPage from "./pages/embed/page.tsx";
 import { Authenticated, Unauthenticated, AuthLoading } from "convex/react";
 import { useQuery } from "convex/react";
 import { api } from "@/convex/_generated/api.js";
@@ -93,6 +94,7 @@ export default function App() {
           {/* ADD ALL CUSTOM ROUTES ABOVE THE CATCH-ALL "*" ROUTE */}
           <Route path="/marketplace" element={<MarketplacePage />} />
           <Route path="/agent/:agentId" element={<AgentSharePage />} />
+          <Route path="/embed/:agentId" element={<EmbedPage />} />
           <Route path="*" element={<NotFound />} />
         </Routes>
       </BrowserRouter>

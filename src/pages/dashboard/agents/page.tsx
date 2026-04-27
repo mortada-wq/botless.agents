@@ -2,7 +2,7 @@ import { useQuery, useMutation } from "convex/react";
 import { api } from "@/convex/_generated/api.js";
 import { Link } from "react-router-dom";
 import { motion } from "motion/react";
-import { Plus, Bot, MoreVertical, Trash2, EyeOff, Globe, Share2, BookOpen } from "lucide-react";
+import { Plus, Bot, MoreVertical, Trash2, EyeOff, Globe, Share2, BookOpen, Code2 } from "lucide-react";
 import { Button } from "@/components/ui/button.tsx";
 import { Skeleton } from "@/components/ui/skeleton.tsx";
 import { Empty, EmptyHeader, EmptyMedia, EmptyTitle, EmptyDescription, EmptyContent } from "@/components/ui/empty.tsx";
@@ -11,12 +11,14 @@ import { useState } from "react";
 import { AGENT_TYPES, TONES } from "./_lib/agent-types.ts";
 import { cn } from "@/lib/utils.ts";
 import type { Doc } from "@/convex/_generated/dataModel.d.ts";
+import EmbedDialog from "./_components/embed-dialog.tsx";
 
 function AgentCard({ agent }: { agent: Doc<"agents"> }) {
   const deleteAgent = useMutation(api.agents.deleteAgent);
   const publishAgent = useMutation(api.marketplace.publishAgent);
   const unpublishAgent = useMutation(api.marketplace.unpublishAgent);
   const [menuOpen, setMenuOpen] = useState(false);
+  const [embedOpen, setEmbedOpen] = useState(false);
 
   const agentType = AGENT_TYPES.find((t) => t.id === agent.agentType);
   const tone = TONES.find((t) => t.id === agent.tone);
@@ -149,6 +151,12 @@ function AgentCard({ agent }: { agent: Doc<"agents"> }) {
                 </button>
               )}
               <button
+                onClick={() => { setEmbedOpen(true); setMenuOpen(false); }}
+                className="w-full flex items-center gap-2.5 px-3 py-2.5 text-sm text-foreground hover:bg-secondary transition-colors cursor-pointer"
+              >
+                <Code2 className="w-4 h-4" /> Get Embed Code
+              </button>
+              <button
                 onClick={() => { void handleDelete(); setMenuOpen(false); }}
                 className="w-full flex items-center gap-2.5 px-3 py-2.5 text-sm text-destructive hover:bg-destructive/10 transition-colors cursor-pointer"
               >
@@ -158,6 +166,14 @@ function AgentCard({ agent }: { agent: Doc<"agents"> }) {
           </>
         )}
       </div>
+
+      {/* Embed code dialog */}
+      <EmbedDialog
+        agentId={agent._id}
+        agentName={agent.name}
+        open={embedOpen}
+        onClose={() => setEmbedOpen(false)}
+      />
     </motion.div>
   );
 }
