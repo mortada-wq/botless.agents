@@ -4,9 +4,11 @@ import { Palette, RotateCcw, Check, Sparkles, Eye } from "lucide-react";
 import { Button } from "@/components/ui/button.tsx";
 import { Card, CardContent, CardHeader, CardTitle, CardDescription } from "@/components/ui/card.tsx";
 import { Badge } from "@/components/ui/badge.tsx";
-import { Separator } from "@/components/ui/separator.tsx";
 import { toast } from "sonner";
 import { cn } from "@/lib/utils.ts";
+import Logo, { type LogoVariant } from "@/components/logo.tsx";
+
+const LOGO_STORAGE_KEY = "botless-logo-variant";
 
 // ─── Default values (must match index.css :root) ────────────────────────────
 const DEFAULTS = {
@@ -282,6 +284,9 @@ export default function DesignLanguagePage() {
   const [tokens, setTokens] = useState<Record<string, string>>(loadTokens);
   const [saved, setSaved] = useState<Record<string, string>>(loadTokens);
   const [showPreview, setShowPreview] = useState(true);
+  const [logoVariant, setLogoVariant] = useState<LogoVariant>(
+    () => (localStorage.getItem(LOGO_STORAGE_KEY) as LogoVariant | null) ?? "silver"
+  );
 
   // Apply on mount
   useEffect(() => {
@@ -299,6 +304,7 @@ export default function DesignLanguagePage() {
 
   const handleSave = () => {
     localStorage.setItem(STORAGE_KEY, JSON.stringify(tokens));
+    localStorage.setItem(LOGO_STORAGE_KEY, logoVariant);
     setSaved({ ...tokens });
     applyTokens(tokens);
     toast.success("Design language saved", { description: "Your color customizations are now active." });
@@ -309,7 +315,9 @@ export default function DesignLanguagePage() {
     setTokens(defaults);
     applyTokens(defaults);
     localStorage.setItem(STORAGE_KEY, JSON.stringify(defaults));
+    localStorage.setItem(LOGO_STORAGE_KEY, "silver");
     setSaved(defaults);
+    setLogoVariant("silver");
     toast.info("Reset to defaults", { description: "All colors have been restored to the default theme." });
   };
 
@@ -393,6 +401,40 @@ export default function DesignLanguagePage() {
           </Card>
         </motion.div>
       )}
+
+      {/* Logo Variant */}
+      <motion.div initial={{ opacity: 0, y: 12 }} animate={{ opacity: 1, y: 0 }} transition={{ delay: 0.05 }}>
+        <Card>
+          <CardHeader className="pb-3">
+            <CardTitle className="text-base">Logo Style</CardTitle>
+            <CardDescription>Choose the gradient color variant for the wordmark logo</CardDescription>
+          </CardHeader>
+          <CardContent className="pt-0">
+            <div className="flex flex-wrap gap-4">
+              {(["silver", "coral", "blue"] as LogoVariant[]).map((v) => (
+                <button
+                  key={v}
+                  onClick={() => setLogoVariant(v)}
+                  className={cn(
+                    "flex flex-col items-center gap-3 px-6 py-4 rounded-xl border-2 transition-all cursor-pointer",
+                    logoVariant === v
+                      ? "border-primary bg-primary/10"
+                      : "border-border bg-card hover:border-muted-foreground/40"
+                  )}
+                >
+                  <div className="bg-[#111] rounded-lg px-4 py-3">
+                    <Logo height={28} variant={v} />
+                  </div>
+                  <span className="text-xs font-medium text-muted-foreground capitalize">{v}</span>
+                  {logoVariant === v && (
+                    <span className="text-xs text-primary font-semibold">Active</span>
+                  )}
+                </button>
+              ))}
+            </div>
+          </CardContent>
+        </Card>
+      </motion.div>
 
       {/* Color groups */}
       {COLOR_GROUPS.map((group, gi) => (
