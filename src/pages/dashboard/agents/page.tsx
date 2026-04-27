@@ -2,7 +2,7 @@ import { useQuery, useMutation } from "convex/react";
 import { api } from "@/convex/_generated/api.js";
 import { Link } from "react-router-dom";
 import { motion } from "motion/react";
-import { Plus, Bot, MoreVertical, Trash2, EyeOff, Globe } from "lucide-react";
+import { Plus, Bot, MoreVertical, Trash2, EyeOff, Globe, Share2 } from "lucide-react";
 import { Button } from "@/components/ui/button.tsx";
 import { Skeleton } from "@/components/ui/skeleton.tsx";
 import { Empty, EmptyHeader, EmptyMedia, EmptyTitle, EmptyDescription, EmptyContent } from "@/components/ui/empty.tsx";
@@ -44,6 +44,12 @@ function AgentCard({ agent }: { agent: Doc<"agents"> }) {
     } catch {
       toast.error("Failed to update visibility");
     }
+  };
+
+  const handleCopyShareLink = async () => {
+    const url = `${window.location.origin}/agent/${agent._id}`;
+    await navigator.clipboard.writeText(url);
+    toast.success("Share link copied!");
   };
 
   return (
@@ -122,6 +128,14 @@ function AgentCard({ agent }: { agent: Doc<"agents"> }) {
                 {isPublic ? <EyeOff className="w-4 h-4" /> : <Globe className="w-4 h-4" />}
                 {isPublic ? "Unpublish" : "Publish to Marketplace"}
               </button>
+              {isPublic && (
+                <button
+                  onClick={() => { void handleCopyShareLink(); setMenuOpen(false); }}
+                  className="w-full flex items-center gap-2.5 px-3 py-2.5 text-sm text-foreground hover:bg-secondary transition-colors cursor-pointer"
+                >
+                  <Share2 className="w-4 h-4" /> Copy Share Link
+                </button>
+              )}
               <button
                 onClick={() => { void handleDelete(); setMenuOpen(false); }}
                 className="w-full flex items-center gap-2.5 px-3 py-2.5 text-sm text-destructive hover:bg-destructive/10 transition-colors cursor-pointer"

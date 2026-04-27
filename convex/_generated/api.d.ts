@@ -17,6 +17,10 @@ import type * as marketplace from "../marketplace.js";
 import type * as media_jobs from "../media/jobs.js";
 import type * as media_siliconflow from "../media/siliconflow.js";
 import type * as providerSettings from "../providerSettings.js";
+import type * as publicChat_agentInfo from "../publicChat/agentInfo.js";
+import type * as publicChat_llmAction from "../publicChat/llmAction.js";
+import type * as publicChat_llmHelpers from "../publicChat/llmHelpers.js";
+import type * as publicChat_sessions from "../publicChat/sessions.js";
 import type * as users from "../users.js";
 
 import type {
@@ -35,6 +39,10 @@ declare const fullApi: ApiFromModules<{
   "media/jobs": typeof media_jobs;
   "media/siliconflow": typeof media_siliconflow;
   providerSettings: typeof providerSettings;
+  "publicChat/agentInfo": typeof publicChat_agentInfo;
+  "publicChat/llmAction": typeof publicChat_llmAction;
+  "publicChat/llmHelpers": typeof publicChat_llmHelpers;
+  "publicChat/sessions": typeof publicChat_sessions;
   users: typeof users;
 }>;
 

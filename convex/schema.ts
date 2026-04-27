@@ -84,6 +84,22 @@ export default defineSchema({
     .index("by_user", ["userId"])
     .index("by_user_and_status", ["userId", "status"]),
 
+  // Public (guest) chat sessions — no auth required, identified by guestId
+  publicChatSessions: defineTable({
+    agentId: v.id("agents"),
+    guestId: v.string(), // random UUID stored in localStorage
+    lastMessageAt: v.string(),
+  })
+    .index("by_agent_and_guest", ["agentId", "guestId"]),
+
+  // Public chat messages
+  publicChatMessages: defineTable({
+    sessionId: v.id("publicChatSessions"),
+    role: v.union(v.literal("user"), v.literal("assistant")),
+    content: v.string(),
+    isStreaming: v.optional(v.boolean()),
+  }).index("by_session", ["sessionId"]),
+
   // Chat sessions (one per user+agent conversation)
   chatSessions: defineTable({
     userId: v.id("users"),
