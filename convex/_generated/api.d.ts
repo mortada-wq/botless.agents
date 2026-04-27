@@ -9,6 +9,7 @@
  */
 
 import type * as agents from "../agents.js";
+import type * as providerSettings from "../providerSettings.js";
 import type * as users from "../users.js";
 
 import type {
@@ -19,6 +20,7 @@ import type {
 
 declare const fullApi: ApiFromModules<{
   agents: typeof agents;
+  providerSettings: typeof providerSettings;
   users: typeof users;
 }>;
 
