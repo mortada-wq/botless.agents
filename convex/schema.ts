@@ -38,6 +38,38 @@ export default defineSchema({
     answer: v.string(),
   }).index("by_agent", ["agentId"]),
 
+  // Media generation jobs (image/video via SiliconFlow or other providers)
+  mediaJobs: defineTable({
+    userId: v.id("users"),
+    agentId: v.optional(v.id("agents")),
+    type: v.union(v.literal("image"), v.literal("video")),
+    provider: v.string(),
+    model: v.string(),
+    prompt: v.string(),
+    negativePrompt: v.optional(v.string()),
+    // Image params
+    width: v.optional(v.number()),
+    height: v.optional(v.number()),
+    steps: v.optional(v.number()),
+    seed: v.optional(v.number()),
+    // Video params
+    duration: v.optional(v.number()),
+    fps: v.optional(v.number()),
+    // Output
+    status: v.union(
+      v.literal("pending"),
+      v.literal("running"),
+      v.literal("completed"),
+      v.literal("failed")
+    ),
+    resultUrl: v.optional(v.string()),
+    errorMessage: v.optional(v.string()),
+    // Cost tracking (in credits/tokens)
+    estimatedCost: v.optional(v.number()),
+  })
+    .index("by_user", ["userId"])
+    .index("by_user_and_status", ["userId", "status"]),
+
   // Per-user AI provider configuration
   providerSettings: defineTable({
     userId: v.id("users"),

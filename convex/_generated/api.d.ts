@@ -9,6 +9,8 @@
  */
 
 import type * as agents from "../agents.js";
+import type * as media_jobs from "../media/jobs.js";
+import type * as media_siliconflow from "../media/siliconflow.js";
 import type * as providerSettings from "../providerSettings.js";
 import type * as users from "../users.js";
 
@@ -20,6 +22,8 @@ import type {
 
 declare const fullApi: ApiFromModules<{
   agents: typeof agents;
+  "media/jobs": typeof media_jobs;
+  "media/siliconflow": typeof media_siliconflow;
   providerSettings: typeof providerSettings;
   users: typeof users;
 }>;
