@@ -13,6 +13,7 @@ import StudioPage from "./pages/dashboard/studio/page.tsx";
 import ChatPage from "./pages/dashboard/chat/page.tsx";
 import MarketplacePage from "./pages/marketplace/page.tsx";
 import AgentSharePage from "./pages/agent/page.tsx";
+import AnalyticsPage from "./pages/dashboard/analytics/page.tsx";
 import { Authenticated, Unauthenticated, AuthLoading } from "convex/react";
 import { useQuery } from "convex/react";
 import { api } from "@/convex/_generated/api.js";
@@ -85,6 +86,7 @@ export default function App() {
             <Route path="settings" element={<SettingsPage />} />
             <Route path="studio" element={<StudioPage />} />
             <Route path="chat" element={<ChatPage />} />
+            <Route path="analytics" element={<AnalyticsPage />} />
           </Route>
           {/* ADD ALL CUSTOM ROUTES ABOVE THE CATCH-ALL "*" ROUTE */}
           <Route path="/marketplace" element={<MarketplacePage />} />

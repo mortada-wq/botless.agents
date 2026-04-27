@@ -9,6 +9,7 @@
  */
 
 import type * as agents from "../agents.js";
+import type * as analytics from "../analytics.js";
 import type * as chat_llmAction from "../chat/llmAction.js";
 import type * as chat_llmAction_helpers from "../chat/llmAction_helpers.js";
 import type * as chat_messages from "../chat/messages.js";
@@ -31,6 +32,7 @@ import type {
 
 declare const fullApi: ApiFromModules<{
   agents: typeof agents;
+  analytics: typeof analytics;
   "chat/llmAction": typeof chat_llmAction;
   "chat/llmAction_helpers": typeof chat_llmAction_helpers;
   "chat/messages": typeof chat_messages;
