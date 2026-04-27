@@ -1,4 +1,5 @@
 import { BrowserRouter, Route, Routes, Navigate } from "react-router-dom";
+import { useEffect } from "react";
 import { DefaultProviders } from "./components/providers/default.tsx";
 import AuthCallback from "./pages/auth/Callback.tsx";
 import Index from "./pages/Index.tsx";
@@ -18,6 +19,7 @@ import KnowledgeBasePage from "./pages/dashboard/agents/knowledge/page.tsx";
 import EmbedPage from "./pages/embed/page.tsx";
 import PlaygroundPage from "./pages/dashboard/playground/page.tsx";
 import PipelinePage from "./pages/dashboard/pipeline/page.tsx";
+import DesignLanguagePage from "./pages/dashboard/design/page.tsx";
 import { Authenticated, Unauthenticated, AuthLoading } from "convex/react";
 import { useQuery } from "convex/react";
 import { api } from "@/convex/_generated/api.js";
@@ -42,6 +44,24 @@ function DashboardGuard() {
 }
 
 export default function App() {
+  // Load saved design tokens on startup
+  useEffect(() => {
+    const STORAGE_KEY = "botless-design-tokens";
+    try {
+      const raw = localStorage.getItem(STORAGE_KEY);
+      if (raw) {
+        const tokens = JSON.parse(raw) as Record<string, string>;
+        Object.entries(tokens).forEach(([key, value]) => {
+          if (!key.startsWith("--gradient-")) {
+            document.documentElement.style.setProperty(key, value);
+          }
+        });
+      }
+    } catch {
+      // ignore
+    }
+  }, []);
+
   return (
     <DefaultProviders>
       <BrowserRouter>
@@ -94,6 +114,7 @@ export default function App() {
             <Route path="agents/:agentId/knowledge" element={<KnowledgeBasePage />} />
             <Route path="playground" element={<PlaygroundPage />} />
             <Route path="pipeline" element={<PipelinePage />} />
+            <Route path="design" element={<DesignLanguagePage />} />
           </Route>
           {/* ADD ALL CUSTOM ROUTES ABOVE THE CATCH-ALL "*" ROUTE */}
           <Route path="/marketplace" element={<MarketplacePage />} />

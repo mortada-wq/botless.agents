@@ -1,5 +1,5 @@
 import { Outlet, Link, useLocation, useNavigate } from "react-router-dom";
-import { Bot, LayoutDashboard, Settings, LogOut, ChevronRight, Sparkles, Menu, X, Wand2, MessageSquare, BarChart2, FlaskConical, Zap } from "lucide-react";
+import { Bot, LayoutDashboard, Settings, LogOut, ChevronRight, Sparkles, Menu, X, Wand2, MessageSquare, BarChart2, FlaskConical, Zap, Palette } from "lucide-react";
 import { useState } from "react";
 import { useAuth } from "@/hooks/use-auth.ts";
 import { useQuery } from "convex/react";
@@ -7,6 +7,7 @@ import { api } from "@/convex/_generated/api.js";
 import { Authenticated } from "convex/react";
 import { cn } from "@/lib/utils.ts";
 import { Skeleton } from "@/components/ui/skeleton.tsx";
+import Logo from "@/components/logo.tsx";
 
 const NAV_ITEMS = [
   { label: "Dashboard", icon: LayoutDashboard, href: "/dashboard" },
@@ -17,6 +18,7 @@ const NAV_ITEMS = [
   { label: "Marketplace", icon: Sparkles, href: "/marketplace" },
   { label: "Playground", icon: FlaskConical, href: "/dashboard/playground" },
   { label: "Pipeline", icon: Zap, href: "/dashboard/pipeline" },
+  { label: "Design Language", icon: Palette, href: "/dashboard/design" },
   { label: "Settings", icon: Settings, href: "/dashboard/settings" },
 ];
 
@@ -35,11 +37,8 @@ function SidebarContent({ onClose }: { onClose?: () => void }) {
     <div className="flex flex-col h-full">
       {/* Logo */}
       <div className="flex items-center justify-between px-5 py-5 border-b border-border">
-        <Link to="/" className="flex items-center gap-2 cursor-pointer">
-          <div className="w-8 h-8 rounded-lg bg-primary flex items-center justify-center">
-            <Bot className="w-4 h-4 text-white" />
-          </div>
-          <span className="text-base font-bold text-foreground">Botless</span>
+        <Link to="/" className="flex items-center cursor-pointer">
+          <Logo height={28} />
         </Link>
         {onClose && (
           <button onClick={onClose} className="text-muted-foreground hover:text-foreground cursor-pointer">
@@ -137,11 +136,8 @@ export default function DashboardLayout() {
             <button onClick={() => setMobileOpen(true)} className="text-muted-foreground cursor-pointer">
               <Menu className="w-5 h-5" />
             </button>
-            <div className="flex items-center gap-2">
-              <div className="w-6 h-6 rounded-md bg-primary flex items-center justify-center">
-                <Bot className="w-3.5 h-3.5 text-white" />
-              </div>
-              <span className="text-sm font-bold text-foreground">Botless</span>
+            <div className="flex items-center">
+              <Logo height={22} />
             </div>
             <div className="w-5" />
           </header>
