@@ -13,6 +13,7 @@ import type * as chat_llmAction from "../chat/llmAction.js";
 import type * as chat_llmAction_helpers from "../chat/llmAction_helpers.js";
 import type * as chat_messages from "../chat/messages.js";
 import type * as chat_sessions from "../chat/sessions.js";
+import type * as marketplace from "../marketplace.js";
 import type * as media_jobs from "../media/jobs.js";
 import type * as media_siliconflow from "../media/siliconflow.js";
 import type * as providerSettings from "../providerSettings.js";
@@ -30,6 +31,7 @@ declare const fullApi: ApiFromModules<{
   "chat/llmAction_helpers": typeof chat_llmAction_helpers;
   "chat/messages": typeof chat_messages;
   "chat/sessions": typeof chat_sessions;
+  marketplace: typeof marketplace;
   "media/jobs": typeof media_jobs;
   "media/siliconflow": typeof media_siliconflow;
   providerSettings: typeof providerSettings;

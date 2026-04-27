@@ -2,7 +2,7 @@ import { useQuery, useMutation } from "convex/react";
 import { api } from "@/convex/_generated/api.js";
 import { Link } from "react-router-dom";
 import { motion } from "motion/react";
-import { Plus, Bot, MoreVertical, Trash2, Eye, EyeOff, ExternalLink } from "lucide-react";
+import { Plus, Bot, MoreVertical, Trash2, EyeOff, Globe } from "lucide-react";
 import { Button } from "@/components/ui/button.tsx";
 import { Skeleton } from "@/components/ui/skeleton.tsx";
 import { Empty, EmptyHeader, EmptyMedia, EmptyTitle, EmptyDescription, EmptyContent } from "@/components/ui/empty.tsx";
@@ -14,11 +14,13 @@ import type { Doc } from "@/convex/_generated/dataModel.d.ts";
 
 function AgentCard({ agent }: { agent: Doc<"agents"> }) {
   const deleteAgent = useMutation(api.agents.deleteAgent);
-  const updateAgent = useMutation(api.agents.updateAgent);
+  const publishAgent = useMutation(api.marketplace.publishAgent);
+  const unpublishAgent = useMutation(api.marketplace.unpublishAgent);
   const [menuOpen, setMenuOpen] = useState(false);
 
   const agentType = AGENT_TYPES.find((t) => t.id === agent.agentType);
   const tone = TONES.find((t) => t.id === agent.tone);
+  const isPublic = agent.visibility === "public";
 
   const handleDelete = async () => {
     if (!confirm("Delete this agent? This cannot be undone.")) return;
@@ -30,10 +32,15 @@ function AgentCard({ agent }: { agent: Doc<"agents"> }) {
     }
   };
 
-  const handleToggleVisibility = async () => {
+  const handleTogglePublish = async () => {
     try {
-      await updateAgent({ agentId: agent._id, visibility: agent.visibility === "public" ? "private" : "public" });
-      toast.success(`Agent is now ${agent.visibility === "public" ? "private" : "public"}`);
+      if (isPublic) {
+        await unpublishAgent({ agentId: agent._id });
+        toast.success("Agent removed from marketplace");
+      } else {
+        await publishAgent({ agentId: agent._id });
+        toast.success("Agent published to marketplace!");
+      }
     } catch {
       toast.error("Failed to update visibility");
     }
@@ -64,8 +71,11 @@ function AgentCard({ agent }: { agent: Doc<"agents"> }) {
           )}>
             {agent.status}
           </span>
-          <span className="text-[10px] text-muted-foreground px-2 py-0.5 rounded-full bg-secondary">
-            {agent.visibility === "public" ? "🌐 Public" : "🔒 Private"}
+          <span className={cn(
+            "text-[10px] font-medium px-2 py-0.5 rounded-full flex items-center gap-1",
+            isPublic ? "bg-primary/10 text-primary" : "bg-secondary text-muted-foreground"
+          )}>
+            {isPublic ? <><Globe className="w-2.5 h-2.5" /> Public</> : "Private"}
           </span>
         </div>
         {agent.tagline && <p className="text-sm text-muted-foreground mt-0.5">{agent.tagline}</p>}
@@ -85,6 +95,11 @@ function AgentCard({ agent }: { agent: Doc<"agents"> }) {
               {agent.industry}
             </span>
           )}
+          {isPublic && (
+            <span className="text-xs text-muted-foreground">
+              {agent.likeCount ?? 0} likes · {agent.cloneCount ?? 0} clones
+            </span>
+          )}
         </div>
       </div>
 
@@ -99,16 +114,16 @@ function AgentCard({ agent }: { agent: Doc<"agents"> }) {
         {menuOpen && (
           <>
             <div className="fixed inset-0 z-10" onClick={() => setMenuOpen(false)} />
-            <div className="absolute right-0 top-8 z-20 bg-popover border border-border rounded-xl shadow-xl min-w-[160px] py-1 overflow-hidden">
+            <div className="absolute right-0 top-8 z-20 bg-popover border border-border rounded-xl shadow-xl min-w-[180px] py-1 overflow-hidden">
               <button
-                onClick={() => { handleToggleVisibility(); setMenuOpen(false); }}
+                onClick={() => { void handleTogglePublish(); setMenuOpen(false); }}
                 className="w-full flex items-center gap-2.5 px-3 py-2.5 text-sm text-foreground hover:bg-secondary transition-colors cursor-pointer"
               >
-                {agent.visibility === "public" ? <EyeOff className="w-4 h-4" /> : <Eye className="w-4 h-4" />}
-                Make {agent.visibility === "public" ? "Private" : "Public"}
+                {isPublic ? <EyeOff className="w-4 h-4" /> : <Globe className="w-4 h-4" />}
+                {isPublic ? "Unpublish" : "Publish to Marketplace"}
               </button>
               <button
-                onClick={() => { handleDelete(); setMenuOpen(false); }}
+                onClick={() => { void handleDelete(); setMenuOpen(false); }}
                 className="w-full flex items-center gap-2.5 px-3 py-2.5 text-sm text-destructive hover:bg-destructive/10 transition-colors cursor-pointer"
               >
                 <Trash2 className="w-4 h-4" /> Delete
@@ -126,16 +141,23 @@ export default function AgentsPage() {
 
   return (
     <div className="max-w-3xl mx-auto space-y-6">
-      <div className="flex items-center justify-between">
+      <div className="flex items-center justify-between gap-3">
         <div>
           <h1 className="text-2xl font-bold text-foreground">My Agents</h1>
           <p className="text-sm text-muted-foreground mt-0.5">Manage and deploy your AI agents.</p>
         </div>
-        <Link to="/dashboard/agents/new">
-          <Button className="bg-primary hover:bg-primary/90 cursor-pointer gap-2">
-            <Plus className="w-4 h-4" /> New Agent
-          </Button>
-        </Link>
+        <div className="flex items-center gap-2 shrink-0">
+          <Link to="/marketplace">
+            <Button variant="secondary" className="cursor-pointer gap-2">
+              <Globe className="w-4 h-4" /> Marketplace
+            </Button>
+          </Link>
+          <Link to="/dashboard/agents/new">
+            <Button className="bg-primary hover:bg-primary/90 cursor-pointer gap-2">
+              <Plus className="w-4 h-4" /> New Agent
+            </Button>
+          </Link>
+        </div>
       </div>
 
       {agents === undefined ? (

@@ -28,9 +28,23 @@ export default defineSchema({
     knowledgeText: v.optional(v.string()),
     status: v.string(),
     visibility: v.string(),
+    // Marketplace fields
+    tags: v.optional(v.array(v.string())),
+    likeCount: v.optional(v.number()),
+    cloneCount: v.optional(v.number()),
+    publishedAt: v.optional(v.string()), // ISO 8601
   })
     .index("by_owner", ["ownerId"])
-    .index("by_status", ["status"]),
+    .index("by_status", ["status"])
+    .index("by_visibility", ["visibility"]),
+
+  // Likes tracking (prevents duplicate likes)
+  agentLikes: defineTable({
+    agentId: v.id("agents"),
+    userId: v.id("users"),
+  })
+    .index("by_agent", ["agentId"])
+    .index("by_user_and_agent", ["userId", "agentId"]),
 
   faqs: defineTable({
     agentId: v.id("agents"),
