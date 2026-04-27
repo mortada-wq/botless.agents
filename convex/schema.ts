@@ -138,6 +138,37 @@ export default defineSchema({
     siliconflowApiKey: v.optional(v.string()),
   }).index("by_user", ["userId"]),
 
+  // Characters with emotional state video clips
+  characters: defineTable({
+    ownerId: v.id("users"),
+    name: v.string(),
+    description: v.optional(v.string()),
+    avatarUrl: v.optional(v.string()),
+    avatarStorageId: v.optional(v.string()),
+  }).index("by_owner", ["ownerId"]),
+
+  // Emotional state clips per character (webm / gif / lottie)
+  emotionalStates: defineTable({
+    characterId: v.id("characters"),
+    ownerId: v.id("users"),
+    emotion: v.string(), // e.g. "happy", "sad", "angry", "surprised"
+    label: v.optional(v.string()),
+    // Original uploaded asset
+    storageId: v.optional(v.id("_storage")),
+    originalUrl: v.optional(v.string()),
+    // Processed lightweight output
+    processedUrl: v.optional(v.string()),
+    processedFormat: v.optional(v.union(v.literal("webm"), v.literal("gif"), v.literal("lottie"), v.literal("original"))),
+    processingStatus: v.union(v.literal("pending"), v.literal("processing"), v.literal("done"), v.literal("failed")),
+    processingError: v.optional(v.string()),
+    // Thumbnail for preview
+    thumbnailUrl: v.optional(v.string()),
+    // Is this the default clip used in chat?
+    isDefault: v.optional(v.boolean()),
+  })
+    .index("by_character", ["characterId"])
+    .index("by_owner", ["ownerId"]),
+
   // Knowledge base files attached to an agent
   knowledgeFiles: defineTable({
     agentId: v.id("agents"),
