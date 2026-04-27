@@ -12,7 +12,7 @@ import SettingsPage from "./pages/dashboard/settings/page.tsx";
 import StudioPage from "./pages/dashboard/studio/page.tsx";
 import ChatPage from "./pages/dashboard/chat/page.tsx";
 import MarketplacePage from "./pages/marketplace/page.tsx";
-import AgentSharePage from "./pages/agent/[agentId].tsx";
+import AgentSharePage from "./pages/agent/page.tsx";
 import { Authenticated, Unauthenticated, AuthLoading } from "convex/react";
 import { useQuery } from "convex/react";
 import { api } from "@/convex/_generated/api.js";

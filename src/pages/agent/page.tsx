@@ -286,16 +286,22 @@ function ChatPanel({
 
 // ── Main share page ───────────────────────────────────────────────────────────
 
+// Convex IDs are alphanumeric strings typically 32 chars
+function isValidConvexId(id: string): boolean {
+  return /^[a-z0-9]{15,40}$/i.test(id);
+}
+
 export default function AgentSharePage() {
   const { agentId } = useParams<{ agentId: string }>();
   const guestId = getOrCreateGuestId();
+  const validId = agentId && isValidConvexId(agentId);
 
   const agent = useQuery(
     api.publicChat.agentInfo.getPublicAgentById,
-    agentId ? { agentId: agentId as Id<"agents"> } : "skip"
+    validId ? { agentId: agentId as Id<"agents"> } : "skip"
   );
 
-  if (agent === undefined) {
+  if (agent === undefined && validId) {
     return (
       <div className="min-h-screen bg-background flex items-center justify-center">
         <Loader2 className="w-8 h-8 animate-spin text-primary" />
@@ -303,7 +309,7 @@ export default function AgentSharePage() {
     );
   }
 
-  if (!agent || agent.visibility !== "public") {
+  if (!agent || !validId || agent.visibility !== "public") {
     return (
       <div className="min-h-screen bg-background flex flex-col items-center justify-center gap-4 p-8 text-center">
         <Bot className="w-16 h-16 text-muted-foreground" />
