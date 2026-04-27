@@ -70,6 +70,25 @@ export default defineSchema({
     .index("by_user", ["userId"])
     .index("by_user_and_status", ["userId", "status"]),
 
+  // Chat sessions (one per user+agent conversation)
+  chatSessions: defineTable({
+    userId: v.id("users"),
+    agentId: v.id("agents"),
+    title: v.string(),
+    lastMessageAt: v.string(), // ISO 8601
+  })
+    .index("by_user", ["userId"])
+    .index("by_user_and_agent", ["userId", "agentId"]),
+
+  // Chat messages
+  chatMessages: defineTable({
+    sessionId: v.id("chatSessions"),
+    role: v.union(v.literal("user"), v.literal("assistant")),
+    content: v.string(),
+    // For streaming partial content
+    isStreaming: v.optional(v.boolean()),
+  }).index("by_session", ["sessionId"]),
+
   // Per-user AI provider configuration
   providerSettings: defineTable({
     userId: v.id("users"),

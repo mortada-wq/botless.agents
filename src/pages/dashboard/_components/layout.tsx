@@ -1,5 +1,5 @@
 import { Outlet, Link, useLocation, useNavigate } from "react-router-dom";
-import { Bot, LayoutDashboard, Settings, LogOut, ChevronRight, Sparkles, Menu, X, Wand2 } from "lucide-react";
+import { Bot, LayoutDashboard, Settings, LogOut, ChevronRight, Sparkles, Menu, X, Wand2, MessageSquare } from "lucide-react";
 import { useState } from "react";
 import { useAuth } from "@/hooks/use-auth.ts";
 import { useQuery } from "convex/react";
@@ -11,6 +11,7 @@ import { Skeleton } from "@/components/ui/skeleton.tsx";
 const NAV_ITEMS = [
   { label: "Dashboard", icon: LayoutDashboard, href: "/dashboard" },
   { label: "My Agents", icon: Bot, href: "/dashboard/agents" },
+  { label: "Chat", icon: MessageSquare, href: "/dashboard/chat" },
   { label: "Media Studio", icon: Wand2, href: "/dashboard/studio" },
   { label: "Marketplace", icon: Sparkles, href: "/marketplace" },
   { label: "Settings", icon: Settings, href: "/dashboard/settings" },

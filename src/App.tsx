@@ -10,6 +10,7 @@ import AgentsPage from "./pages/dashboard/agents/page.tsx";
 import NewAgentPage from "./pages/dashboard/agents/new/page.tsx";
 import SettingsPage from "./pages/dashboard/settings/page.tsx";
 import StudioPage from "./pages/dashboard/studio/page.tsx";
+import ChatPage from "./pages/dashboard/chat/page.tsx";
 import { Authenticated, Unauthenticated, AuthLoading } from "convex/react";
 import { useQuery } from "convex/react";
 import { api } from "@/convex/_generated/api.js";
@@ -81,6 +82,7 @@ export default function App() {
             <Route path="agents/new" element={<NewAgentPage />} />
             <Route path="settings" element={<SettingsPage />} />
             <Route path="studio" element={<StudioPage />} />
+            <Route path="chat" element={<ChatPage />} />
           </Route>
           {/* ADD ALL CUSTOM ROUTES ABOVE THE CATCH-ALL "*" ROUTE */}
           <Route path="*" element={<NotFound />} />
