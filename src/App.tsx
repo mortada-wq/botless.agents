@@ -46,9 +46,10 @@ function DashboardGuard() {
 export default function App() {
   // Load saved design tokens on startup
   useEffect(() => {
-    const STORAGE_KEY = "botless-design-tokens";
+    const STORAGE_KEY = "botless-design-tokens-v2";
     try {
-      const raw = localStorage.getItem(STORAGE_KEY);
+      const raw =
+        localStorage.getItem(STORAGE_KEY) ?? localStorage.getItem("botless-design-tokens");
       if (raw) {
         const tokens = JSON.parse(raw) as Record<string, string>;
         Object.entries(tokens).forEach(([key, value]) => {

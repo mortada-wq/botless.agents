@@ -54,7 +54,7 @@ const DEFAULTS = {
 
 type TokenKey = keyof typeof DEFAULTS;
 
-const STORAGE_KEY = "botless-design-tokens";
+const STORAGE_KEY = "botless-design-tokens-v2";
 
 // ─── Color groups for display ────────────────────────────────────────────────
 const COLOR_GROUPS: { label: string; description: string; tokens: { key: TokenKey; label: string; isGradient?: boolean }[] }[] = [
@@ -127,11 +127,14 @@ const COLOR_GROUPS: { label: string; description: string; tokens: { key: TokenKe
 // ─── Helpers ────────────────────────────────────────────────────────────────
 function loadTokens(): Record<string, string> {
   try {
-    const raw = localStorage.getItem(STORAGE_KEY);
-    return raw ? (JSON.parse(raw) as Record<string, string>) : { ...DEFAULTS };
+    const v2 = localStorage.getItem(STORAGE_KEY);
+    if (v2) return { ...DEFAULTS, ...(JSON.parse(v2) as Record<string, string>) };
+    const legacy = localStorage.getItem("botless-design-tokens");
+    if (legacy) return { ...DEFAULTS, ...(JSON.parse(legacy) as Record<string, string>) };
   } catch {
-    return { ...DEFAULTS };
+    /* ignore */
   }
+  return { ...DEFAULTS };
 }
 
 function applyTokens(tokens: Record<string, string>) {
@@ -284,9 +287,11 @@ export default function DesignLanguagePage() {
   const [tokens, setTokens] = useState<Record<string, string>>(loadTokens);
   const [saved, setSaved] = useState<Record<string, string>>(loadTokens);
   const [showPreview, setShowPreview] = useState(true);
-  const [logoVariant, setLogoVariant] = useState<LogoVariant>(
-    () => (localStorage.getItem(LOGO_STORAGE_KEY) as LogoVariant | null) ?? "silver"
-  );
+  const [logoVariant, setLogoVariant] = useState<LogoVariant>(() => {
+    const raw = localStorage.getItem(LOGO_STORAGE_KEY);
+    if (raw === "coral") return "teal";
+    return (raw as LogoVariant | null) ?? "silver";
+  });
 
   // Apply on mount
   useEffect(() => {
