@@ -54,6 +54,10 @@ externalPort = 3000
 localPort = 5000
 externalPort = 80
 
+[[ports]]
+localPort = 5001
+externalPort = 3001
+
 [deployment]
 deploymentTarget = "static"
 build = ["pnpm", "run", "build"]
@@ -64,3 +68,4 @@ publicDir = "dist"
 [userenv.development]
 VITE_OIDC_AUTHORITY = "https://3000-2021c4a2-a675-4096-9285-d0fa25d1a9d8-00-2hmadv4xlhgbi.kirk.replit.dev"
 VITE_OIDC_CLIENT_ID = "local-spa"
+VITE_CONVEX_URL = "https://dazzling-owl-140.convex.cloud"

@@ -13,6 +13,7 @@ import type * as analytics from "../analytics.js";
 import type * as characters from "../characters.js";
 import type * as chat_llmAction from "../chat/llmAction.js";
 import type * as chat_llmAction_helpers from "../chat/llmAction_helpers.js";
+import type * as chat_llmStreamHelpers from "../chat/llmStreamHelpers.js";
 import type * as chat_messages from "../chat/messages.js";
 import type * as chat_sessions from "../chat/sessions.js";
 import type * as knowledge from "../knowledge.js";
@@ -42,6 +43,7 @@ declare const fullApi: ApiFromModules<{
   characters: typeof characters;
   "chat/llmAction": typeof chat_llmAction;
   "chat/llmAction_helpers": typeof chat_llmAction_helpers;
+  "chat/llmStreamHelpers": typeof chat_llmStreamHelpers;
   "chat/messages": typeof chat_messages;
   "chat/sessions": typeof chat_sessions;
   knowledge: typeof knowledge;
