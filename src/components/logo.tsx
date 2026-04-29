@@ -2,8 +2,8 @@
  * Botless wordmark logo — three gradient variants.
  *
  * Variants:
- *  "silver"  — original silver/charcoal gradient (default, README: on obsidian)
- *  "teal"    — medical / Stealth Hospital accent
+ *  "silver"  — original silver/charcoal gradient (default)
+ *  "teal"    — medical teal accent (Stealth Hospital theme)
  *  "blue"    — blue-gray
  */
 
@@ -18,7 +18,7 @@ interface LogoProps {
 
 const GRADIENTS: Record<LogoVariant, { from: string; to: string }> = {
   silver: { from: "#e4e4e4", to: "#5d5b5b" },
-  teal:   { from: "#5CC5C7", to: "#005F73" },
+  teal:   { from: "#2BA697", to: "#005F73" },
   blue:   { from: "#8AAFC7", to: "#3D5A6E" },
 };
 

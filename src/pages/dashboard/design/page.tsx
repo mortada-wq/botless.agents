@@ -10,46 +10,46 @@ import Logo, { type LogoVariant } from "@/components/logo.tsx";
 
 const LOGO_STORAGE_KEY = "botless-logo-variant";
 
-// ─── Default values (must match index.css :root) — Stealth Hospital / teal accent ─
+// ─── Default values (Stealth Hospital Design Language) ─────────────────────
 const DEFAULTS = {
   // Core
-  "--background": "#0a0a0b",
-  "--foreground": "#f5f7fa",
-  "--card": "#161b22",
-  "--card-foreground": "#f5f7fa",
-  "--popover": "#161b22",
-  "--popover-foreground": "#f5f7fa",
-  "--primary": "#0a9396",
-  "--primary-foreground": "#f5f7fa",
-  "--secondary": "#1c222c",
-  "--secondary-foreground": "#f5f7fa",
-  "--muted": "#232a36",
-  "--muted-foreground": "#8a93a4",
-  "--accent": "#0a9396",
-  "--accent-foreground": "#f5f7fa",
-  "--destructive": "#e85d75",
+  "--background": "#0A0A0B",
+  "--foreground": "#F5F7FA",
+  "--card": "#161B22",
+  "--card-foreground": "#F5F7FA",
+  "--popover": "#161B22",
+  "--popover-foreground": "#F5F7FA",
+  "--primary": "#0A9396",
+  "--primary-foreground": "#ffffff",
+  "--secondary": "#1C222C",
+  "--secondary-foreground": "#F5F7FA",
+  "--muted": "#232A36",
+  "--muted-foreground": "#8A93A4",
+  "--accent": "#0A9396",
+  "--accent-foreground": "#ffffff",
+  "--destructive": "#f87171",
   "--border": "rgba(255, 255, 255, 0.08)",
-  "--input": "#232a36",
-  "--ring": "#0a9396",
-  // Charts (status-aligned: ready / rigging / syncing / link / muted)
-  "--chart-1": "#0a9396",
-  "--chart-2": "#2ba697",
-  "--chart-3": "#e8b341",
-  "--chart-4": "#5e9df2",
-  "--chart-5": "#8a93a4",
+  "--input": "#232A36",
+  "--ring": "#0A9396",
+  // Charts
+  "--chart-1": "#0A9396",
+  "--chart-2": "#2BA697",
+  "--chart-3": "#5E9DF2",
+  "--chart-4": "#E8B341",
+  "--chart-5": "#8A93A4",
   // Sidebar
-  "--sidebar": "#0f1117",
-  "--sidebar-foreground": "#f5f7fa",
-  "--sidebar-primary": "#0a9396",
-  "--sidebar-primary-foreground": "#f5f7fa",
-  "--sidebar-accent": "#1c222c",
-  "--sidebar-accent-foreground": "#f5f7fa",
+  "--sidebar": "#0F1117",
+  "--sidebar-foreground": "#F5F7FA",
+  "--sidebar-primary": "#0A9396",
+  "--sidebar-primary-foreground": "#ffffff",
+  "--sidebar-accent": "#1C222C",
+  "--sidebar-accent-foreground": "#F5F7FA",
   "--sidebar-border": "rgba(255, 255, 255, 0.08)",
-  "--sidebar-ring": "#0a9396",
-  // Gradients (teal medical glow)
-  "--gradient-hero": "radial-gradient(ellipse 80% 50% at 50% -20%, rgba(10, 147, 150, 0.2), transparent)",
-  "--gradient-card-glow": "radial-gradient(200px circle at 50% 0%, rgba(10, 147, 150, 0.16), transparent)",
-  "--gradient-grid-line": "rgba(255, 255, 255, 0.04)",
+  "--sidebar-ring": "#0A9396",
+  // Gradients (stored as CSS background strings)
+  "--gradient-hero": "radial-gradient(ellipse 80% 50% at 50% -20%, #0A939633, transparent)",
+  "--gradient-card-glow": "radial-gradient(200px circle at 50% 0%, #0A939633, transparent)",
+  "--gradient-grid-line": "#8A93A4",
 } satisfies Record<string, string>;
 
 type TokenKey = keyof typeof DEFAULTS;
@@ -178,7 +178,7 @@ function ColorToken({
             />
             <input
               type="color"
-              value={value.startsWith("#") ? value : "#0a9396"}
+              value={value.startsWith("#") ? value : "#0A9396"}
               onChange={(e) => onChange(tokenKey, e.target.value)}
               className="absolute inset-0 opacity-0 w-full h-full cursor-pointer"
             />

@@ -1,0 +1,71 @@
+modules = ["web", "nodejs-22"]
+[agent]
+expertMode = true
+stack = "BEST_EFFORT_FALLBACK"
+
+[nix]
+channel = "stable-25_05"
+
+[workflows]
+runButton = "Project"
+
+[[workflows.workflow]]
+name = "Project"
+mode = "parallel"
+author = "agent"
+
+[[workflows.workflow.tasks]]
+task = "workflow.run"
+args = "Start application"
+
+[[workflows.workflow.tasks]]
+task = "workflow.run"
+args = "OIDC Server"
+
+[[workflows.workflow]]
+name = "Start application"
+author = "agent"
+
+[[workflows.workflow.tasks]]
+task = "shell.exec"
+args = "pnpm dev"
+waitForPort = 5000
+
+[workflows.workflow.metadata]
+outputType = "webview"
+
+[[workflows.workflow]]
+name = "OIDC Server"
+author = "agent"
+
+[[workflows.workflow.tasks]]
+task = "shell.exec"
+args = "node scripts/local-oidc.mjs"
+waitForPort = 3000
+
+[workflows.workflow.metadata]
+outputType = "console"
+
+[[ports]]
+localPort = 3000
+externalPort = 3000
+
+[[ports]]
+localPort = 5000
+externalPort = 80
+
+[[ports]]
+localPort = 5001
+externalPort = 3001
+
+[deployment]
+deploymentTarget = "static"
+build = ["pnpm", "run", "build"]
+publicDir = "dist"
+
+[userenv]
+
+[userenv.development]
+VITE_OIDC_AUTHORITY = "https://3000-2021c4a2-a675-4096-9285-d0fa25d1a9d8-00-2hmadv4xlhgbi.kirk.replit.dev"
+VITE_OIDC_CLIENT_ID = "local-spa"
+VITE_CONVEX_URL = "https://dazzling-owl-140.convex.cloud"
