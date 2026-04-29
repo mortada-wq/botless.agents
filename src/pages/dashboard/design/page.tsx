@@ -175,7 +175,7 @@ function ColorToken({
             />
             <input
               type="color"
-              value={value.startsWith("#") ? value : "#E26D5C"}
+              value={value.startsWith("#") ? value : "#0A9396"}
               onChange={(e) => onChange(tokenKey, e.target.value)}
               className="absolute inset-0 opacity-0 w-full h-full cursor-pointer"
             />
@@ -411,7 +411,7 @@ export default function DesignLanguagePage() {
           </CardHeader>
           <CardContent className="pt-0">
             <div className="flex flex-wrap gap-4">
-              {(["silver", "coral", "blue"] as LogoVariant[]).map((v) => (
+              {(["silver", "teal", "blue"] as LogoVariant[]).map((v) => (
                 <button
                   key={v}
                   onClick={() => setLogoVariant(v)}
