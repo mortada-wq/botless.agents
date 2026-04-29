@@ -42,7 +42,7 @@ export default function DashboardHome() {
         transition={{ duration: 0.4, delay: 0.1 }}
         className="grid grid-cols-1 sm:grid-cols-3 gap-4"
       >
-        <StatCard label="Active Agents" value={0} icon={Bot} color="#E26D5C" />
+        <StatCard label="Active Agents" value={0} icon={Bot} color="#0a9396" />
         <StatCard label="Total Conversations" value={0} icon={Users} color="#667eea" />
         <StatCard label="AI Calls Today" value={0} icon={Zap} color="#48bb78" />
       </motion.div>

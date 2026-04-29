@@ -1,16 +1,15 @@
+/* Stealth Hospital / Agent Factory: Inter + JetBrains Mono (must precede other @import) */
+@import url("https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&family=JetBrains+Mono:wght@400;500;600&display=swap");
 @import "tailwindcss";
 @import "tw-animate-css";
 @plugin "@tailwindcss/typography";
-@import url("https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&family=Space+Grotesk:wght@400;500;600;700&display=swap");
 
 @custom-variant dark (&:is(.dark *));
 
 @theme inline {
-  --font-sans:
-    "Space Grotesk", "Inter", ui-sans-serif, system-ui, sans-serif;
-  --font-mono:
-    "Geist Mono", ui-monospace, SFMono-Regular, Menlo, Monaco, Consolas,
-    "Liberation Mono", "Courier New", monospace;
+  --font-sans: "Inter", ui-sans-serif, system-ui, sans-serif;
+  --font-mono: "JetBrains Mono", ui-monospace, "SF Mono", Menlo, Monaco, Consolas,
+    monospace;
   --font-serif:
     "Noto Serif", ui-serif, Georgia, Cambria, "Times New Roman", Times, serif;
 
@@ -53,72 +52,72 @@
 
 :root {
   --radius: 0.5rem;
-  /* Dark premium theme — always dark */
-  --background: #0f1117;
-  --foreground: #ffffff;
-  --card: #1a1f2e;
-  --card-foreground: #ffffff;
-  --popover: #1a1f2e;
-  --popover-foreground: #ffffff;
-  --primary: #E26D5C;
-  --primary-foreground: #ffffff;
-  --secondary: #2d3748;
-  --secondary-foreground: #ffffff;
-  --muted: #2d3748;
-  --muted-foreground: #a8adc4;
-  --accent: #E26D5C;
-  --accent-foreground: #ffffff;
-  --destructive: oklch(0.704 0.191 22.216);
-  --border: #3a4252;
-  --input: #2d3748;
-  --ring: #E26D5C;
-  --chart-1: #E26D5C;
-  --chart-2: #48bb78;
-  --chart-3: #ed8936;
-  --chart-4: #667eea;
-  --chart-5: #a8adc4;
+  /* Stealth Hospital — dark (see Botless design languge/README.md) */
+  --background: #0a0a0b;
+  --foreground: #f5f7fa;
+  --card: #161b22;
+  --card-foreground: #f5f7fa;
+  --popover: #161b22;
+  --popover-foreground: #f5f7fa;
+  --primary: #0a9396;
+  --primary-foreground: #f5f7fa;
+  --secondary: #1c222c;
+  --secondary-foreground: #f5f7fa;
+  --muted: #232a36;
+  --muted-foreground: #8a93a4;
+  --accent: #0a9396;
+  --accent-foreground: #f5f7fa;
+  --destructive: #e85d75;
+  --border: rgba(255, 255, 255, 0.08);
+  --input: #232a36;
+  --ring: #0a9396;
+  --chart-1: #0a9396;
+  --chart-2: #2ba697;
+  --chart-3: #e8b341;
+  --chart-4: #5e9df2;
+  --chart-5: #8a93a4;
   --sidebar: #0f1117;
-  --sidebar-foreground: #ffffff;
-  --sidebar-primary: #E26D5C;
-  --sidebar-primary-foreground: #ffffff;
-  --sidebar-accent: #2d3748;
-  --sidebar-accent-foreground: #ffffff;
-  --sidebar-border: #3a4252;
-  --sidebar-ring: #E26D5C;
+  --sidebar-foreground: #f5f7fa;
+  --sidebar-primary: #0a9396;
+  --sidebar-primary-foreground: #f5f7fa;
+  --sidebar-accent: #1c222c;
+  --sidebar-accent-foreground: #f5f7fa;
+  --sidebar-border: rgba(255, 255, 255, 0.08);
+  --sidebar-ring: #0a9396;
 }
 
 .dark {
-  --background: #0f1117;
-  --foreground: #ffffff;
-  --card: #1a1f2e;
-  --card-foreground: #ffffff;
-  --popover: #1a1f2e;
-  --popover-foreground: #ffffff;
-  --primary: #E26D5C;
-  --primary-foreground: #ffffff;
-  --secondary: #2d3748;
-  --secondary-foreground: #ffffff;
-  --muted: #2d3748;
-  --muted-foreground: #a8adc4;
-  --accent: #E26D5C;
-  --accent-foreground: #ffffff;
-  --destructive: oklch(0.704 0.191 22.216);
-  --border: #3a4252;
-  --input: #2d3748;
-  --ring: #E26D5C;
-  --chart-1: #E26D5C;
-  --chart-2: #48bb78;
-  --chart-3: #ed8936;
-  --chart-4: #667eea;
-  --chart-5: #a8adc4;
+  --background: #0a0a0b;
+  --foreground: #f5f7fa;
+  --card: #161b22;
+  --card-foreground: #f5f7fa;
+  --popover: #161b22;
+  --popover-foreground: #f5f7fa;
+  --primary: #0a9396;
+  --primary-foreground: #f5f7fa;
+  --secondary: #1c222c;
+  --secondary-foreground: #f5f7fa;
+  --muted: #232a36;
+  --muted-foreground: #8a93a4;
+  --accent: #0a9396;
+  --accent-foreground: #f5f7fa;
+  --destructive: #e85d75;
+  --border: rgba(255, 255, 255, 0.08);
+  --input: #232a36;
+  --ring: #0a9396;
+  --chart-1: #0a9396;
+  --chart-2: #2ba697;
+  --chart-3: #e8b341;
+  --chart-4: #5e9df2;
+  --chart-5: #8a93a4;
   --sidebar: #0f1117;
-  --sidebar-foreground: #ffffff;
-  --sidebar-primary: #E26D5C;
-  --sidebar-primary-foreground: #ffffff;
-  --sidebar-accent: #2d3748;
-  --sidebar-accent-foreground: #ffffff;
-  --sidebar-border: #3a4252;
-  --sidebar-ring: #E26D5C;
+  --sidebar-foreground: #f5f7fa;
+  --sidebar-primary: #0a9396;
+  --sidebar-primary-foreground: #f5f7fa;
+  --sidebar-accent: #1c222c;
+  --sidebar-accent-foreground: #f5f7fa;
+  --sidebar-border: rgba(255, 255, 255, 0.08);
+  --sidebar-ring: #0a9396;
 }
 
 @layer base {
@@ -126,6 +125,23 @@
     @apply border-border outline-ring/50;
   }
   body {
-    @apply bg-background text-foreground;
+    @apply bg-background text-foreground font-sans antialiased;
+    letter-spacing: -0.01em;
+    /* Blueprint floor — minor teal / major white (design system) */
+    background-image: linear-gradient(
+        to right,
+        rgba(10, 147, 150, 0.05) 1px,
+        transparent 1px
+      ),
+      linear-gradient(to bottom, rgba(10, 147, 150, 0.05) 1px, transparent 1px),
+      linear-gradient(to right, rgba(255, 255, 255, 0.04) 1px, transparent 1px),
+      linear-gradient(to bottom, rgba(255, 255, 255, 0.04) 1px, transparent 1px);
+    background-size: 20px 20px, 20px 20px, 100px 100px, 100px 100px;
+  }
+  code,
+  kbd,
+  pre,
+  .font-mono {
+    letter-spacing: 0;
   }
 }

@@ -203,7 +203,7 @@ export default function AnalyticsPage() {
           Array.from({ length: 8 }).map((_, i) => <StatCardSkeleton key={i} />)
         ) : (
           <>
-            <StatCard label="Total Agents" value={data.agentCount} icon={Bot} color="#E26D5C" delay={0} sub={`${data.activeAgentCount} active`} />
+            <StatCard label="Total Agents" value={data.agentCount} icon={Bot} color="#0a9396" delay={0} sub={`${data.activeAgentCount} active`} />
             <StatCard label="Conversations" value={data.totalConversations} icon={MessageSquare} color="#667eea" delay={0.05} sub={`${data.totalChatSessions} private · ${data.totalPublicSessions} public`} />
             <StatCard label="Media Jobs" value={data.totalMediaJobs} icon={Wand2} color="#f6ad55" delay={0.1} sub={`${data.completedMediaJobs} completed`} />
             <StatCard label="Public Reach" value={data.totalPublicSessions} icon={Users} color="#48bb78" delay={0.15} />

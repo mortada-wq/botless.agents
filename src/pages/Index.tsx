@@ -16,7 +16,7 @@ const AGENT_CARDS = [
     avatar: "https://api.dicebear.com/9.x/avataaars/svg?seed=Aurora&backgroundColor=b6e3f4",
     lastMessage: "Your glow routine starts here ✨",
     online: true,
-    color: "#E26D5C",
+    color: "#0a9396",
   },
   {
     id: 2,

@@ -10,51 +10,51 @@ import Logo, { type LogoVariant } from "@/components/logo.tsx";
 
 const LOGO_STORAGE_KEY = "botless-logo-variant";
 
-// ─── Default values (must match index.css :root) ────────────────────────────
+// ─── Default values (must match index.css :root) — Stealth Hospital / teal accent ─
 const DEFAULTS = {
   // Core
-  "--background": "#0f1117",
-  "--foreground": "#ffffff",
-  "--card": "#1a1f2e",
-  "--card-foreground": "#ffffff",
-  "--popover": "#1a1f2e",
-  "--popover-foreground": "#ffffff",
-  "--primary": "#E26D5C",
-  "--primary-foreground": "#ffffff",
-  "--secondary": "#2d3748",
-  "--secondary-foreground": "#ffffff",
-  "--muted": "#2d3748",
-  "--muted-foreground": "#a8adc4",
-  "--accent": "#E26D5C",
-  "--accent-foreground": "#ffffff",
-  "--destructive": "#f87171",
-  "--border": "#3a4252",
-  "--input": "#2d3748",
-  "--ring": "#E26D5C",
-  // Charts
-  "--chart-1": "#E26D5C",
-  "--chart-2": "#48bb78",
-  "--chart-3": "#ed8936",
-  "--chart-4": "#667eea",
-  "--chart-5": "#a8adc4",
+  "--background": "#0a0a0b",
+  "--foreground": "#f5f7fa",
+  "--card": "#161b22",
+  "--card-foreground": "#f5f7fa",
+  "--popover": "#161b22",
+  "--popover-foreground": "#f5f7fa",
+  "--primary": "#0a9396",
+  "--primary-foreground": "#f5f7fa",
+  "--secondary": "#1c222c",
+  "--secondary-foreground": "#f5f7fa",
+  "--muted": "#232a36",
+  "--muted-foreground": "#8a93a4",
+  "--accent": "#0a9396",
+  "--accent-foreground": "#f5f7fa",
+  "--destructive": "#e85d75",
+  "--border": "rgba(255, 255, 255, 0.08)",
+  "--input": "#232a36",
+  "--ring": "#0a9396",
+  // Charts (status-aligned: ready / rigging / syncing / link / muted)
+  "--chart-1": "#0a9396",
+  "--chart-2": "#2ba697",
+  "--chart-3": "#e8b341",
+  "--chart-4": "#5e9df2",
+  "--chart-5": "#8a93a4",
   // Sidebar
   "--sidebar": "#0f1117",
-  "--sidebar-foreground": "#ffffff",
-  "--sidebar-primary": "#E26D5C",
-  "--sidebar-primary-foreground": "#ffffff",
-  "--sidebar-accent": "#2d3748",
-  "--sidebar-accent-foreground": "#ffffff",
-  "--sidebar-border": "#3a4252",
-  "--sidebar-ring": "#E26D5C",
-  // Gradients (stored as CSS background strings)
-  "--gradient-hero": "radial-gradient(ellipse 80% 50% at 50% -20%, #E26D5C33, transparent)",
-  "--gradient-card-glow": "radial-gradient(200px circle at 50% 0%, #E26D5C33, transparent)",
-  "--gradient-grid-line": "#ffffff",
+  "--sidebar-foreground": "#f5f7fa",
+  "--sidebar-primary": "#0a9396",
+  "--sidebar-primary-foreground": "#f5f7fa",
+  "--sidebar-accent": "#1c222c",
+  "--sidebar-accent-foreground": "#f5f7fa",
+  "--sidebar-border": "rgba(255, 255, 255, 0.08)",
+  "--sidebar-ring": "#0a9396",
+  // Gradients (teal medical glow)
+  "--gradient-hero": "radial-gradient(ellipse 80% 50% at 50% -20%, rgba(10, 147, 150, 0.2), transparent)",
+  "--gradient-card-glow": "radial-gradient(200px circle at 50% 0%, rgba(10, 147, 150, 0.16), transparent)",
+  "--gradient-grid-line": "rgba(255, 255, 255, 0.04)",
 } satisfies Record<string, string>;
 
 type TokenKey = keyof typeof DEFAULTS;
 
-const STORAGE_KEY = "botless-design-tokens";
+const STORAGE_KEY = "botless-design-tokens-v2";
 
 // ─── Color groups for display ────────────────────────────────────────────────
 const COLOR_GROUPS: { label: string; description: string; tokens: { key: TokenKey; label: string; isGradient?: boolean }[] }[] = [
@@ -127,11 +127,14 @@ const COLOR_GROUPS: { label: string; description: string; tokens: { key: TokenKe
 // ─── Helpers ────────────────────────────────────────────────────────────────
 function loadTokens(): Record<string, string> {
   try {
-    const raw = localStorage.getItem(STORAGE_KEY);
-    return raw ? (JSON.parse(raw) as Record<string, string>) : { ...DEFAULTS };
+    const v2 = localStorage.getItem(STORAGE_KEY);
+    if (v2) return { ...DEFAULTS, ...(JSON.parse(v2) as Record<string, string>) };
+    const legacy = localStorage.getItem("botless-design-tokens");
+    if (legacy) return { ...DEFAULTS, ...(JSON.parse(legacy) as Record<string, string>) };
   } catch {
-    return { ...DEFAULTS };
+    /* ignore */
   }
+  return { ...DEFAULTS };
 }
 
 function applyTokens(tokens: Record<string, string>) {
@@ -175,7 +178,7 @@ function ColorToken({
             />
             <input
               type="color"
-              value={value.startsWith("#") ? value : "#E26D5C"}
+              value={value.startsWith("#") ? value : "#0a9396"}
               onChange={(e) => onChange(tokenKey, e.target.value)}
               className="absolute inset-0 opacity-0 w-full h-full cursor-pointer"
             />
@@ -284,9 +287,11 @@ export default function DesignLanguagePage() {
   const [tokens, setTokens] = useState<Record<string, string>>(loadTokens);
   const [saved, setSaved] = useState<Record<string, string>>(loadTokens);
   const [showPreview, setShowPreview] = useState(true);
-  const [logoVariant, setLogoVariant] = useState<LogoVariant>(
-    () => (localStorage.getItem(LOGO_STORAGE_KEY) as LogoVariant | null) ?? "silver"
-  );
+  const [logoVariant, setLogoVariant] = useState<LogoVariant>(() => {
+    const raw = localStorage.getItem(LOGO_STORAGE_KEY);
+    if (raw === "coral") return "teal";
+    return (raw as LogoVariant | null) ?? "silver";
+  });
 
   // Apply on mount
   useEffect(() => {
@@ -411,7 +416,7 @@ export default function DesignLanguagePage() {
           </CardHeader>
           <CardContent className="pt-0">
             <div className="flex flex-wrap gap-4">
-              {(["silver", "coral", "blue"] as LogoVariant[]).map((v) => (
+              {(["silver", "teal", "blue"] as LogoVariant[]).map((v) => (
                 <button
                   key={v}
                   onClick={() => setLogoVariant(v)}
