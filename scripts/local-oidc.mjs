@@ -3,17 +3,30 @@
  * Run: pnpm local:oidc
  *
  * Then start Convex + Vite. Convex must use the same issuer URL for JWT validation.
- * Note: Convex Cloud cannot reach http://127.0.0.1 — use local Convex (`npx convex dev`)
- * with Node.js 18–24 (not Node 25+) so `"use node"` actions deploy.
+ * In Replit, the OIDC server is publicly accessible so Convex Cloud can reach it.
  */
 import Provider from "oidc-provider";
 
-const port = Number(process.env.OIDC_PORT ?? "9100");
-const host = process.env.OIDC_HOST ?? "127.0.0.1";
-const issuer = process.env.OIDC_ISSUER ?? `http://${host}:${port}`;
+const replitDomain = process.env.REPLIT_DEV_DOMAIN;
+const defaultPort = 3000;
+const port = Number(process.env.OIDC_PORT ?? defaultPort);
 
+// In Replit, use the public domain. Otherwise fall back to localhost.
+const defaultHost = replitDomain ? "0.0.0.0" : "127.0.0.1";
+const host = process.env.OIDC_HOST ?? defaultHost;
+
+// Replit exposes ports at https://<port>-<domain>
+const defaultIssuer = replitDomain
+  ? `https://${port}-${replitDomain}`
+  : `http://127.0.0.1:${port}`;
+const issuer = process.env.OIDC_ISSUER ?? defaultIssuer;
+
+// The Vite app public origin
+const replitAppDomain = replitDomain
+  ? `https://${replitDomain}`
+  : null;
 const redirectOrigin =
-  process.env.VITE_DEV_ORIGIN ?? "http://127.0.0.1:5173";
+  process.env.VITE_DEV_ORIGIN ?? replitAppDomain ?? "http://127.0.0.1:5000";
 
 const configuration = {
   clients: [
@@ -25,6 +38,9 @@ const configuration = {
       token_endpoint_auth_method: "none",
     },
   ],
+  pkce: {
+    required: () => true,
+  },
 };
 
 const provider = new Provider(issuer, configuration);

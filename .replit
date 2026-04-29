@@ -18,6 +18,10 @@ author = "agent"
 task = "workflow.run"
 args = "Start application"
 
+[[workflows.workflow.tasks]]
+task = "workflow.run"
+args = "OIDC Server"
+
 [[workflows.workflow]]
 name = "Start application"
 author = "agent"
@@ -30,11 +34,33 @@ waitForPort = 5000
 [workflows.workflow.metadata]
 outputType = "webview"
 
+[[workflows.workflow]]
+name = "OIDC Server"
+author = "agent"
+
+[[workflows.workflow.tasks]]
+task = "shell.exec"
+args = "node scripts/local-oidc.mjs"
+waitForPort = 3000
+
+[workflows.workflow.metadata]
+outputType = "console"
+
 [[ports]]
 localPort = 5000
 externalPort = 80
+
+[[ports]]
+localPort = 3000
+externalPort = 3000
 
 [deployment]
 deploymentTarget = "static"
 build = ["pnpm", "run", "build"]
 publicDir = "dist"
+
+[userenv]
+
+[userenv.development]
+VITE_OIDC_AUTHORITY = "https://3000-2021c4a2-a675-4096-9285-d0fa25d1a9d8-00-2hmadv4xlhgbi.kirk.replit.dev"
+VITE_OIDC_CLIENT_ID = "local-spa"
