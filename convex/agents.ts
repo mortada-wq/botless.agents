@@ -1,6 +1,7 @@
 import { ConvexError, v } from "convex/values";
 import type { MutationCtx } from "./_generated/server";
 import { mutation, query } from "./_generated/server";
+import { skills } from "./skills";
 
 async function getAuthUser(ctx: MutationCtx) {
   const identity = await ctx.auth.getUserIdentity();
@@ -105,5 +106,12 @@ export const getAgent = query({
   args: { agentId: v.id("agents") },
   handler: async (ctx, args) => {
     return await ctx.db.get(args.agentId);
+  },
+});
+
+export const listSkills = query({
+  args: {},
+  handler: async () => {
+    return Object.values(skills);
   },
 });
