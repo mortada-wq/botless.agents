@@ -3,11 +3,11 @@
  *
  * Variants:
  *  "silver"  — original silver/charcoal gradient (default)
- *  "coral"   — warm coral/orange accent
+ *  "teal"    — medical teal accent (Stealth Hospital theme)
  *  "blue"    — blue-gray
  */
 
-export type LogoVariant = "silver" | "coral" | "blue";
+export type LogoVariant = "silver" | "teal" | "blue";
 
 interface LogoProps {
   /** Height in pixels. Width scales proportionally (172.46 / 40.15 ≈ 4.295). */
@@ -18,7 +18,7 @@ interface LogoProps {
 
 const GRADIENTS: Record<LogoVariant, { from: string; to: string }> = {
   silver: { from: "#e4e4e4", to: "#5d5b5b" },
-  coral:  { from: "#F0A882", to: "#B85530" },
+  teal:   { from: "#2BA697", to: "#005F73" },
   blue:   { from: "#8AAFC7", to: "#3D5A6E" },
 };
 

@@ -1,15 +1,15 @@
 @import "tailwindcss";
 @import "tw-animate-css";
 @plugin "@tailwindcss/typography";
-@import url("https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&family=Space+Grotesk:wght@400;500;600;700&display=swap");
+@import url("https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&family=JetBrains+Mono:wght@400;500;600&display=swap");
 
 @custom-variant dark (&:is(.dark *));
 
 @theme inline {
   --font-sans:
-    "Space Grotesk", "Inter", ui-sans-serif, system-ui, sans-serif;
+    "Inter", ui-sans-serif, system-ui, sans-serif;
   --font-mono:
-    "Geist Mono", ui-monospace, SFMono-Regular, Menlo, Monaco, Consolas,
+    "JetBrains Mono", ui-monospace, SFMono-Regular, Menlo, Monaco, Consolas,
     "Liberation Mono", "Courier New", monospace;
   --font-serif:
     "Noto Serif", ui-serif, Georgia, Cambria, "Times New Roman", Times, serif;
@@ -53,72 +53,72 @@
 
 :root {
   --radius: 0.5rem;
-  /* Dark premium theme — always dark */
-  --background: #0f1117;
-  --foreground: #ffffff;
-  --card: #1a1f2e;
-  --card-foreground: #ffffff;
-  --popover: #1a1f2e;
-  --popover-foreground: #ffffff;
-  --primary: #E26D5C;
+  /* Stealth Hospital — dark teal medical theme */
+  --background: #0A0A0B;
+  --foreground: #F5F7FA;
+  --card: #161B22;
+  --card-foreground: #F5F7FA;
+  --popover: #161B22;
+  --popover-foreground: #F5F7FA;
+  --primary: #0A9396;
   --primary-foreground: #ffffff;
-  --secondary: #2d3748;
-  --secondary-foreground: #ffffff;
-  --muted: #2d3748;
-  --muted-foreground: #a8adc4;
-  --accent: #E26D5C;
+  --secondary: #1C222C;
+  --secondary-foreground: #F5F7FA;
+  --muted: #232A36;
+  --muted-foreground: #8A93A4;
+  --accent: #0A9396;
   --accent-foreground: #ffffff;
   --destructive: oklch(0.704 0.191 22.216);
-  --border: #3a4252;
-  --input: #2d3748;
-  --ring: #E26D5C;
-  --chart-1: #E26D5C;
-  --chart-2: #48bb78;
-  --chart-3: #ed8936;
-  --chart-4: #667eea;
-  --chart-5: #a8adc4;
-  --sidebar: #0f1117;
-  --sidebar-foreground: #ffffff;
-  --sidebar-primary: #E26D5C;
+  --border: rgba(255, 255, 255, 0.08);
+  --input: #232A36;
+  --ring: #0A9396;
+  --chart-1: #0A9396;
+  --chart-2: #2BA697;
+  --chart-3: #5E9DF2;
+  --chart-4: #E8B341;
+  --chart-5: #8A93A4;
+  --sidebar: #0F1117;
+  --sidebar-foreground: #F5F7FA;
+  --sidebar-primary: #0A9396;
   --sidebar-primary-foreground: #ffffff;
-  --sidebar-accent: #2d3748;
-  --sidebar-accent-foreground: #ffffff;
-  --sidebar-border: #3a4252;
-  --sidebar-ring: #E26D5C;
+  --sidebar-accent: #1C222C;
+  --sidebar-accent-foreground: #F5F7FA;
+  --sidebar-border: rgba(255, 255, 255, 0.08);
+  --sidebar-ring: #0A9396;
 }
 
 .dark {
-  --background: #0f1117;
-  --foreground: #ffffff;
-  --card: #1a1f2e;
-  --card-foreground: #ffffff;
-  --popover: #1a1f2e;
-  --popover-foreground: #ffffff;
-  --primary: #E26D5C;
+  --background: #0A0A0B;
+  --foreground: #F5F7FA;
+  --card: #161B22;
+  --card-foreground: #F5F7FA;
+  --popover: #161B22;
+  --popover-foreground: #F5F7FA;
+  --primary: #0A9396;
   --primary-foreground: #ffffff;
-  --secondary: #2d3748;
-  --secondary-foreground: #ffffff;
-  --muted: #2d3748;
-  --muted-foreground: #a8adc4;
-  --accent: #E26D5C;
+  --secondary: #1C222C;
+  --secondary-foreground: #F5F7FA;
+  --muted: #232A36;
+  --muted-foreground: #8A93A4;
+  --accent: #0A9396;
   --accent-foreground: #ffffff;
   --destructive: oklch(0.704 0.191 22.216);
-  --border: #3a4252;
-  --input: #2d3748;
-  --ring: #E26D5C;
-  --chart-1: #E26D5C;
-  --chart-2: #48bb78;
-  --chart-3: #ed8936;
-  --chart-4: #667eea;
-  --chart-5: #a8adc4;
-  --sidebar: #0f1117;
-  --sidebar-foreground: #ffffff;
-  --sidebar-primary: #E26D5C;
+  --border: rgba(255, 255, 255, 0.08);
+  --input: #232A36;
+  --ring: #0A9396;
+  --chart-1: #0A9396;
+  --chart-2: #2BA697;
+  --chart-3: #5E9DF2;
+  --chart-4: #E8B341;
+  --chart-5: #8A93A4;
+  --sidebar: #0F1117;
+  --sidebar-foreground: #F5F7FA;
+  --sidebar-primary: #0A9396;
   --sidebar-primary-foreground: #ffffff;
-  --sidebar-accent: #2d3748;
-  --sidebar-accent-foreground: #ffffff;
-  --sidebar-border: #3a4252;
-  --sidebar-ring: #E26D5C;
+  --sidebar-accent: #1C222C;
+  --sidebar-accent-foreground: #F5F7FA;
+  --sidebar-border: rgba(255, 255, 255, 0.08);
+  --sidebar-ring: #0A9396;
 }
 
 @layer base {
@@ -128,4 +128,98 @@
   body {
     @apply bg-background text-foreground;
   }
+}
+
+/* ================================================================
+   Stealth Hospital Design Language Utilities
+   ================================================================ */
+
+/* Blueprint grid background */
+.blueprint-floor {
+  background-color: #0A0A0B;
+  background-image:
+    linear-gradient(to right, rgba(10, 147, 150, 0.05) 1px, transparent 1px),
+    linear-gradient(to bottom, rgba(10, 147, 150, 0.05) 1px, transparent 1px),
+    linear-gradient(to right, rgba(255, 255, 255, 0.04) 1px, transparent 1px),
+    linear-gradient(to bottom, rgba(255, 255, 255, 0.04) 1px, transparent 1px);
+  background-size: 20px 20px, 20px 20px, 100px 100px, 100px 100px;
+}
+
+/* Glass morphism panels */
+.glass {
+  background: rgba(22, 27, 34, 0.62);
+  backdrop-filter: blur(14px);
+  -webkit-backdrop-filter: blur(14px);
+  border: 1px solid rgba(255, 255, 255, 0.08);
+}
+
+.glass-strong {
+  background: rgba(22, 27, 34, 0.78);
+  backdrop-filter: blur(20px);
+  -webkit-backdrop-filter: blur(20px);
+  border: 1px solid rgba(255, 255, 255, 0.08);
+  box-shadow: 0 1px 0 rgba(255, 255, 255, 0.04) inset, 0 24px 60px -20px rgba(0, 0, 0, 0.7);
+}
+
+/* Operating table spot light */
+.spot-light {
+  position: relative;
+  isolation: isolate;
+}
+
+.spot-light::before {
+  content: "";
+  position: absolute;
+  inset: 0;
+  background: radial-gradient(60% 50% at 50% 0%, rgba(10, 147, 150, 0.10), transparent);
+  pointer-events: none;
+  z-index: -1;
+}
+
+/* Status dots with glow */
+.status-dot {
+  width: 6px;
+  height: 6px;
+  border-radius: 9999px;
+  display: inline-block;
+}
+
+.status-dot.ready {
+  background: #2BA697;
+  box-shadow: 0 0 8px rgba(43, 166, 151, 0.5);
+}
+
+.status-dot.rigging {
+  background: #E8B341;
+  box-shadow: 0 0 8px rgba(232, 179, 65, 0.5);
+  animation: teal-pulse 2.4s cubic-bezier(0.4, 0, 0.2, 1) infinite;
+}
+
+.status-dot.syncing {
+  background: #5E9DF2;
+  box-shadow: 0 0 8px rgba(94, 157, 242, 0.5);
+  animation: teal-pulse 2.4s cubic-bezier(0.4, 0, 0.2, 1) infinite;
+}
+
+.status-dot.error {
+  background: #f87171;
+  box-shadow: 0 0 8px rgba(248, 113, 113, 0.5);
+}
+
+.status-dot.offline {
+  background: #8A93A4;
+}
+
+/* Teal pulse animation for "thinking" / "rigging" */
+@keyframes teal-pulse {
+  0%, 100% {
+    box-shadow: 0 0 0 0 rgba(10, 147, 150, 0.32), inset 0 0 0 1px rgba(10, 147, 150, 0.32);
+  }
+  50% {
+    box-shadow: 0 0 0 8px rgba(10, 147, 150, 0.0), inset 0 0 0 1px rgba(10, 147, 150, 0.6);
+  }
+}
+
+.teal-pulse {
+  animation: teal-pulse 2.4s cubic-bezier(0.4, 0, 0.2, 1) infinite;
 }

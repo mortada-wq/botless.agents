@@ -10,46 +10,46 @@ import Logo, { type LogoVariant } from "@/components/logo.tsx";
 
 const LOGO_STORAGE_KEY = "botless-logo-variant";
 
-// ─── Default values (must match index.css :root) ────────────────────────────
+// ─── Default values (Stealth Hospital Design Language) ─────────────────────
 const DEFAULTS = {
   // Core
-  "--background": "#0f1117",
-  "--foreground": "#ffffff",
-  "--card": "#1a1f2e",
-  "--card-foreground": "#ffffff",
-  "--popover": "#1a1f2e",
-  "--popover-foreground": "#ffffff",
-  "--primary": "#E26D5C",
+  "--background": "#0A0A0B",
+  "--foreground": "#F5F7FA",
+  "--card": "#161B22",
+  "--card-foreground": "#F5F7FA",
+  "--popover": "#161B22",
+  "--popover-foreground": "#F5F7FA",
+  "--primary": "#0A9396",
   "--primary-foreground": "#ffffff",
-  "--secondary": "#2d3748",
-  "--secondary-foreground": "#ffffff",
-  "--muted": "#2d3748",
-  "--muted-foreground": "#a8adc4",
-  "--accent": "#E26D5C",
+  "--secondary": "#1C222C",
+  "--secondary-foreground": "#F5F7FA",
+  "--muted": "#232A36",
+  "--muted-foreground": "#8A93A4",
+  "--accent": "#0A9396",
   "--accent-foreground": "#ffffff",
   "--destructive": "#f87171",
-  "--border": "#3a4252",
-  "--input": "#2d3748",
-  "--ring": "#E26D5C",
+  "--border": "rgba(255, 255, 255, 0.08)",
+  "--input": "#232A36",
+  "--ring": "#0A9396",
   // Charts
-  "--chart-1": "#E26D5C",
-  "--chart-2": "#48bb78",
-  "--chart-3": "#ed8936",
-  "--chart-4": "#667eea",
-  "--chart-5": "#a8adc4",
+  "--chart-1": "#0A9396",
+  "--chart-2": "#2BA697",
+  "--chart-3": "#5E9DF2",
+  "--chart-4": "#E8B341",
+  "--chart-5": "#8A93A4",
   // Sidebar
-  "--sidebar": "#0f1117",
-  "--sidebar-foreground": "#ffffff",
-  "--sidebar-primary": "#E26D5C",
+  "--sidebar": "#0F1117",
+  "--sidebar-foreground": "#F5F7FA",
+  "--sidebar-primary": "#0A9396",
   "--sidebar-primary-foreground": "#ffffff",
-  "--sidebar-accent": "#2d3748",
-  "--sidebar-accent-foreground": "#ffffff",
-  "--sidebar-border": "#3a4252",
-  "--sidebar-ring": "#E26D5C",
+  "--sidebar-accent": "#1C222C",
+  "--sidebar-accent-foreground": "#F5F7FA",
+  "--sidebar-border": "rgba(255, 255, 255, 0.08)",
+  "--sidebar-ring": "#0A9396",
   // Gradients (stored as CSS background strings)
-  "--gradient-hero": "radial-gradient(ellipse 80% 50% at 50% -20%, #E26D5C33, transparent)",
-  "--gradient-card-glow": "radial-gradient(200px circle at 50% 0%, #E26D5C33, transparent)",
-  "--gradient-grid-line": "#ffffff",
+  "--gradient-hero": "radial-gradient(ellipse 80% 50% at 50% -20%, #0A939633, transparent)",
+  "--gradient-card-glow": "radial-gradient(200px circle at 50% 0%, #0A939633, transparent)",
+  "--gradient-grid-line": "#8A93A4",
 } satisfies Record<string, string>;
 
 type TokenKey = keyof typeof DEFAULTS;
@@ -175,7 +175,7 @@ function ColorToken({
             />
             <input
               type="color"
-              value={value.startsWith("#") ? value : "#E26D5C"}
+              value={value.startsWith("#") ? value : "#0A9396"}
               onChange={(e) => onChange(tokenKey, e.target.value)}
               className="absolute inset-0 opacity-0 w-full h-full cursor-pointer"
             />
@@ -411,7 +411,7 @@ export default function DesignLanguagePage() {
           </CardHeader>
           <CardContent className="pt-0">
             <div className="flex flex-wrap gap-4">
-              {(["silver", "coral", "blue"] as LogoVariant[]).map((v) => (
+              {(["silver", "teal", "blue"] as LogoVariant[]).map((v) => (
                 <button
                   key={v}
                   onClick={() => setLogoVariant(v)}
