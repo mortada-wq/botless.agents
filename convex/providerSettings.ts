@@ -3,7 +3,7 @@ import type { MutationCtx, QueryCtx } from "./_generated/server";
 import { mutation, query } from "./_generated/server";
 
 const DEFAULTS = {
-  chatProvider: "hercules",
+  chatProvider: "openai",
   imageProvider: "siliconflow",
   videoProvider: "siliconflow",
 } as const;

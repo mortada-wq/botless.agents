@@ -16,18 +16,6 @@ export type Provider = {
 
 export const CHAT_PROVIDERS: Provider[] = [
   {
-    id: "hercules",
-    name: "Hercules AI Gateway",
-    logo: "⚡",
-    badge: "Built-in",
-    models: [
-      { id: "openai/gpt-5", label: "GPT-5", desc: "Best quality" },
-      { id: "openai/gpt-5-mini", label: "GPT-5 Mini", desc: "Fast & cheap" },
-      { id: "anthropic/claude-sonnet-4-5-20250929", label: "Claude Sonnet 4.5", desc: "Great reasoning" },
-    ],
-    apiKeyHint: "No API key needed — uses your Hercules Cloud credits.",
-  },
-  {
     id: "openai",
     name: "OpenAI",
     logo: "🤖",

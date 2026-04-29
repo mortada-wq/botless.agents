@@ -15,7 +15,7 @@ export const getAgentAndSettings = internalQuery({
     return {
       ...agent,
       settings: {
-        chatProvider: settings?.chatProvider ?? "hercules",
+        chatProvider: settings?.chatProvider ?? "openai",
         chatModel: settings?.chatModel,
         chatApiKey: settings?.chatApiKey,
         siliconflowApiKey: settings?.siliconflowApiKey,

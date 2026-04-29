@@ -26,7 +26,7 @@ type SettingsState = {
 };
 
 const DEFAULTS: SettingsState = {
-  chatProvider: "hercules",
+  chatProvider: "openai",
   chatModel: "",
   chatApiKey: "",
   imageProvider: "siliconflow",

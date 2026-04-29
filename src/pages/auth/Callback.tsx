@@ -1,45 +1,64 @@
-import { useCallback } from "react";
+import { useEffect, useRef } from "react";
 import { useNavigate } from "react-router-dom";
-import { useAuthCallback } from "@usehercules/auth/react";
+import { useAuth } from "react-oidc-context";
 import { useConvexAuth, useMutation } from "convex/react";
 import { api } from "@/convex/_generated/api.js";
 import { Spinner } from "@/components/ui/spinner.tsx";
-import { Button } from "@/components/ui/button.tsx";
 
 export default function AuthCallback() {
   const navigate = useNavigate();
-  const { isAuthenticated: isConvexAuthenticated } = useConvexAuth();
+  const oidc = useAuth();
+  const { isAuthenticated: convexAuthenticated, isLoading: convexLoading } =
+    useConvexAuth();
   const updateCurrentUser = useMutation(api.users.updateCurrentUser);
+  const finished = useRef(false);
 
-  const onSync = useCallback(async () => {
-    await updateCurrentUser();
-  }, [updateCurrentUser]);
+  useEffect(() => {
+    if (finished.current) return;
+    if (oidc.isLoading || convexLoading) return;
 
-  const navigateHome = useCallback(
-    () => navigate("/", { replace: true }),
-    [navigate],
-  );
+    if (!oidc.isAuthenticated) {
+      navigate("/", { replace: true });
+      return;
+    }
 
-  const { status, error, retry } = useAuthCallback({
-    isBackendAuthenticated: isConvexAuthenticated,
-    onSync,
-    onSuccess: navigateHome,
-    onNoAuthParams: navigateHome,
-  });
+    if (!convexAuthenticated) {
+      return;
+    }
 
-  if (status === "error" && error) {
+    finished.current = true;
+    void (async () => {
+      try {
+        await updateCurrentUser();
+      } finally {
+        navigate("/", { replace: true });
+      }
+    })();
+  }, [
+    oidc.isLoading,
+    oidc.isAuthenticated,
+    convexAuthenticated,
+    convexLoading,
+    navigate,
+    updateCurrentUser,
+  ]);
+
+  if (oidc.error) {
     return (
       <div className="flex flex-col items-center justify-center h-svh gap-6 px-4">
         <div className="flex flex-col items-center gap-2 text-center">
-          <p className="text-destructive font-medium">Something went wrong</p>
-          <p className="text-sm text-muted-foreground max-w-md">{error}</p>
+          <p className="text-destructive font-medium">Sign-in failed</p>
+          <p className="text-sm text-muted-foreground max-w-md">
+            {oidc.error.message}
+          </p>
         </div>
-        <div className="flex gap-3">
-          <Button variant="secondary" onClick={navigateHome}>
-            Return home
-          </Button>
-          <Button onClick={retry}>Try again</Button>
-        </div>
+        <button
+          type="button"
+          className="text-sm text-primary underline"
+          onClick={() => navigate("/", { replace: true })}
+        >
+          Return home
+        </button>
       </div>
     );
   }
@@ -47,7 +66,7 @@ export default function AuthCallback() {
   return (
     <div className="flex flex-col items-center justify-center h-svh gap-4">
       <Spinner className="size-8" />
-      <p className="text-sm text-muted-foreground">Loading...</p>
+      <p className="text-sm text-muted-foreground">Completing sign-in…</p>
     </div>
   );
 }
